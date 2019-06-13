@@ -1,8 +1,9 @@
 
-python版本:python3.7
-
 # 实验室资产管理系统 #	
-目录结构
+### python版本:python3.7
+
+### 目录结构
+````
 requirements.txt     					需要安装的第三方库列表
 config.py  								开发和生产环境下配置文件
 manage.py 								开发环境下应用入口文件
@@ -46,4 +47,4 @@ app										app项目
 	models.py 							数据模型，用来定义app项目的数据库模型
 	emails.py
 	utils.py 								辅助函数
-	
+````
