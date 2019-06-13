@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+
+{% block title %}图书管理{% endblock %}
+
+{% block scripts %} 
+<script type="text/javascript" src="{{url_for('static',filename='js/common.js')}}"></script>
+
+{% endblock %}
+
+{% block subnav %}{% endblock %} 
+
+{% block content %}
+	<div class="container">
+		<h3 class="page-header"><a href="{{url_for('main.index')}}">返回首页</a></h3>
+		<div class="row">
+			{% if current_user.is_administrator() %}
+			<div class="col-xs-1">
+				<a class="btn btn-info btn-sm" href="{{url_for('.add')}}">添加</a>
+			</div>
+			<div class="col-xs-1">
+				<form class="form-inline" method="post" action="" onsubmit="return delAll()">
+					<input type="hidden" name="csrf_token" value="{{csrf_token}}">
+					<input type="submit" class="btn btn-info btn-sm" value="删除">
+				</form>
+			</div>
+			{% endif %}
+			<div class="col-xs-5 pull-right">
+				<form action="/book/index" class="form-inline" action="{{url_for('.index')}}">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6">
+								<input type="text" name="q" class="form-control mr-sm-1" placeholder="书名,借用人" >
+							</div>
+							<div class="col-xs-3">
+									<button class="btn my-2 my-sm-0" type="submit">
+											<span class="oi oi-magnifying-glass">搜索</span>
+									</button>
+							</div>
+							<div class="col-sm-2">
+									<a href="{{url_for('.index')}}" class="btn btn-info my-2 my-sm-0">刷新</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<br>
+		<div class="table-responsive">
+			<table  class="table table-striped">
+				<thead>
+					<tr>
+						<td><input type="checkbox" id="all" onclick="checkboxAll(this)"></td>
+						<th>ID</th>
+						<th>图书编号</th>
+						<th>书名</th>
+						<th>数量</th>
+						<th>价格</th>
+						<th>储位</th>
+						<th>借用人</th>
+						<th>借用时间</th>
+						<th>归还时间</th>
+						{% if current_user.is_administrator() %}
+						<th>操作</th>
+						{% endif %}
+					</tr>
+				</thead>
+				<tbody>
+					{% if books %}
+						{% for book in books %}
+						<tr>
+							<td><input type="checkbox" name="box" onclick="selectAll()" value="{{book.id}}"></td>
+							<td>{{ loop.index + ((pagination.page-1) * config.DEPOT_PER_PAGE) }}</td>
+							<td>{{ book.booknumber }}</td>
+							<td>{{ book.bookname}}</td>
+							<td>{{ book.numbers }}</td>
+							<td>{{ book.prices}}</td>
+							<td>{{ book.position }}</td>
+							<td>{{ book.username}}</td>
+							<td>{{ book.lendtime}}</td>
+							<td>{{ book.backtime}}</td>
+							{% if current_user.is_administrator() %}
+							<td>
+								<div class="row">
+									<div class="col-sm-3">
+										<a class="btn btn-info btn-sm" href="{{url_for('.edit',id=book.id)}}">编辑</a>
+									</div>
+									<div class="col-sm-3">
+										<form class="form-inline" method="post" action="{{url_for('.delete',id=book.id,next=request.full_path)}}">
+											<input type="hidden" name="csrf_token" value="{{csrf_token}}">
+											<button type="submit" class="btn btn-danger btn-sm" id="delitem",onclick="return delItem()">删除</button>
+										</form>
+									</div>
+								</div>
+							</td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+					{% else %} 
+						<tr>
+								<td colspan="10" class="text-center">暂无数据</td>
+						</tr>
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+		<div class="page-footer">
+			{% if pagination.pages > 1 %} {{render_pagination(pagination)}} {% endif %}
+		</div>
+		<div class="form-group">
+			<div class="pull-left col-xs-4 col-sm-2">
+				<a class="btn btn-default btn-sm export-rule" href="{{url_for('.explore')}}">导出数据</a>
+			</div>
+			{% if current_user.is_administrator() %}
+			<div class="input-group col-xs-7 col-sm-5">
+				<form method="post" enctype="multipart/form-data" action="{{ url_for('.upload') }}" role="form">
+					{{ form.csrf_token }}
+					<div class="col-sm-6">
+					{{ form.file }}
+					</div>
+					<div class="col-sm-4">
+						{{ form.upload}}
+					</div>
+				</form>
+			</div>
+			{% endif %}
+			
+			
+		
+	</div>
+{% endblock %}
+
+			

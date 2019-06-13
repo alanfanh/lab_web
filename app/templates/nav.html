@@ -1,0 +1,12 @@
+<ul class="nav nav-sidebar">
+					{% for depot in depots %}
+					<li class="active">
+						<a href="{{url_for('main.')}} depot.name <span class="sr-only">(current)</span></a>
+					</li>
+					<li>
+						<a href="{{url_for('main.fixedassets_show')}}">固定资产仓</a>
+					</li>
+					<li>
+						<a href="#">低值易损耗仓</a>
+					</li>
+				</ul>

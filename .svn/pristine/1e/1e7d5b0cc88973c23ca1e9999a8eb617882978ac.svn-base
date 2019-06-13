@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block metas %}
+    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css' ) }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/spop.min.css' ) }}">
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{url_for('static',filename='js/auth.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/spop.min.js' )}}"></script>
+{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h1 class="display-4 text-center">登录</h1>
+        <hr>
+        <form method="post" onsubmit="return checkLoginForm()">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.username.label }}
+                {{ form.username(class='form-control') }}
+				<span id="susername"></span>
+            </div>
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password(class='form-control') }}
+				<span id="spwd"></span>
+            </div>
+            <div class="form-check">
+                {{ form.remember_me(class='form-check-input') }}
+                {{ form.remember_me.label }}
+				<div class="unit-1-3 flex-right"><span><a href="{{url_for('auth.forget_password')}}">忘记密码？</a></span></div>
+            </div>
+            {{ form.submit(class='btn btn-primary') }}
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

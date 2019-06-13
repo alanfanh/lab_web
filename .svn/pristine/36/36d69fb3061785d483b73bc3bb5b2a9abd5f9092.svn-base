@@ -1,0 +1,158 @@
+import os
+import uuid
+import xlrd,xlwt
+from openpyxl import Workbook,load_workbook
+import re
+from datetime import datetime
+
+#读取excel    
+def read_excel(path):
+    filename=os.path.basename(path)
+    if filename.endswith('xls'):
+        worksheet = xlrd.open_workbook(path)
+        sheet = worksheet.sheet_by_index(0)
+        rows = sheet.nrows
+        columns = sheet.ncols
+        data = []
+        head = sheet.row_values(0)
+        data.append(head)
+        for i in range(1,rows):
+            row = sheet.row_values(i)
+            if row:
+                app = {}
+                for i in range(len(row)):
+                    app[head[i]] = row[i]
+                data.append(app)   
+    elif filename.endswith('xlsx'):
+        worksheet = load_workbook(path)
+        sheets = worksheet.get_sheet_names()
+        sheet = worksheet.get_sheet_by_name(sheets[0])
+        rows = sheet.rows
+        columns = sheet.columns
+        data = []
+        head = [col.value for col in rows[0]]
+        data.append(head)
+        for row in rows:
+            app = {}
+            if row:
+                for i in range(len(row)):
+                    app[head[i]] = row[i].value
+                data.append(app)   
+        # data.remove(data[0])
+    return data
+	
+	
+	    
+# print(read_excel(r'F:\downloads\图书_20190312112541.xls'))
+#检查表格格式是否正确
+def checHead(fact,expe):
+    if fact == expe:
+        return True
+    else:
+        return False
+
+
+
+#检查是否为正整数
+def checkInt(data):
+    if re.match('^\d+$',str(data)):
+        return True
+    else:
+        return False
+
+
+#检查是否为正整数和小数
+def checkNumber(data):
+    if re.match('^\d+\.?\d+$',str(data)):
+        print(111)
+        return True
+    else:
+        if checkInt(data):
+            print(222)
+            return True
+        return False
+    
+    
+#检查是否为数字字母和下划线
+def checkType(data):
+    if re.match('^[0-9A-Za-z_]+$',str(data)):
+        print(str(data))
+        return True
+    else:
+        return False
+
+
+
+#检查是否为空
+def checkEmpty(data):
+    if str(data) == "":
+        return True
+    else:
+        return False
+
+
+
+
+
+#检查是否为数字字母中文和下划线
+def checkType2(data):
+    if re.match('^[0-9a-zA-Z_\u4e00-\u9fa5]+$',str(data)):
+        return True
+    else:
+        return False
+ 
+#检查是否是符合格式的日期
+def checkDate(data):
+    if re.match('^(\d{4})-(\d+)-(\d+)$',str(data)):
+        try:
+            if datetime.strptime(str(data),'%Y-%m-%d'):
+                return True
+        except Exception as e:
+            return False
+    elif re.match('^(\d{4})/(\d+)/(\d+)$',str(data)):
+        try:
+            if datetime.strptime(data,'%Y/%m/%d'):
+                return True
+        except Exception as e:
+            return False
+    return False
+        
+#检查日期2是否大于等于日期1
+def checkCompareDate(data1,data2):
+        if re.match('^(\d{4})-(\d+)-(\d+)$',str(data1)):
+            data1 = datetime.strptime(data1,'%Y-%m-%d')
+        if re.match('^(\d{4})-(\d+)-(\d+)$',str(data2)):
+            data2 = datetime.strptime(data2,'%Y-%m-%d')
+        if re.match('^(\d{4})/(\d+)/(\d+)$',str(data1)):
+            data1 = datetime.strptime(data1,'%Y/%m/%d')
+        if re.match('^(\d{4})/(\d+)/(\d+)$',str(data2)):
+            data2 = datetime.strptime(data2,'%Y/%m/%d')
+        print ('data2',data2)
+        print ('data1',data1)
+        if data2 >= data1:
+            return True
+        else: 
+            return False
+        
+        
+        
+        
+# print(checkInt(1))
+# print(checkInt(-1))
+# print(checkInt(1.1))
+
+
+
+# print(checkNumber(1))
+# print(checkNumber(1.1))
+# print(checkNumber(1.))
+
+# print(checkType2('123_Ax'))
+# print(checkType2('12$_Ax'))
+# print(checkType2('中文_Ax'))
+# print(checkDate('2017-1-1'))
+# print(checkDate('2017/1/1'))
+# print(checkDate('2017/1/32'))
+print(checkCompareDate('2017-1-1','2017-1-1'))
+print(checkCompareDate('2017-1-1','2017-1-2'))
+print(checkCompareDate('2017-1-1','2016-1-2'))

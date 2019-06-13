@@ -1,0 +1,16 @@
+[uwsgi]
+
+socket = 127.0.0.1:8888
+wsgi-file = /srv/Lab_mangement/manage.py
+chdir=/srv/Lab_mangement/
+callable=app
+
+processes=1
+threads=2
+enable-threads=true
+master=true
+
+protocol = uwsgi
+
+buffer-size=65536
+daemonize=/srv/Lab_mangement/log/uwsgi.log

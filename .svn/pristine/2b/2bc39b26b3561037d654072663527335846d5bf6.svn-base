@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block metas %}
+    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock %}
+
+{% block title %}{{depot.name}}管理{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css' ) }}">
+{% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+	<script type="text/javascript" src="{{url_for('static',filename='js/depot.js' )}}"></script>
+{% endblock %}
+	
+{% block subnav %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+       <h4 class="page-header"><a href="{{url_for('.index')}}">返回首页</a> »<span>添加</span></h4>
+        <form class="form-horizontal" method="post" onsubmit="return T1Login()">
+            {{ form.csrf_token }}
+			<div class="form-group">
+                {{ form.assetnumber.label(class="col-sm-2 control-label") }}
+				 <div class="col-sm-4">
+                    {{ form.assetnumber(class='form-control') }}
+					<span id="sassetnumber"></span>
+				</div>
+            </div>
+            <div class="form-group">
+                {{ form.product_name.label(class="col-sm-2 control-label") }}
+				<div class="col-sm-4">
+                    {{ form.product_name(class='form-control') }}
+					<span id="sproduct_name"></span>
+				</div>
+            </div>
+            <div class="form-group">
+                {{ form.model_name.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.model_name(class='form-control') }}
+					<span id="smodel_name"></span>
+				</div>
+            </div>
+             <div class="form-group">
+                {{ form.numbers.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.numbers(class='form-control') }}
+					<span id="snumbers"></span>
+				</div>
+            </div>
+			<div class="form-group">
+                {{ form.position.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.position(class='form-control') }}
+					<span id="sposition"></span>
+				</div>
+            </div>
+			<div class="form-group">
+                {{ form.status.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.status(class='form-control',onchange='testselect()') }}
+				</div>
+            </div>
+			<div class="form-group">
+                {{ form.username.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.username(class='form-control') }}
+					<span id="susername"></span>
+				</div>
+            </div>
+			<div class="form-group">
+                {{ form.usermail.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.usermail(class='form-control') }}
+					<span id="susermail"></span>
+				</div>
+            </div>
+			<div class="form-group">
+                {{ form.lend_time.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.lend_time(class='form-control') }}
+					<span id="slend_time"></span>
+				</div>
+            </div>
+			<div class="form-group">
+                {{ form.lend_numbers.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.lend_numbers(class='form-control') }}
+					<span id="slend_numbers"></span>
+				</div>
+            </div>
+			<div class="form-group">
+                {{ form.back_time.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.back_time(class='form-control') }}
+					<span id="sback_time"></span>
+				</div>
+            </div>
+			<div class="form-group">
+                {{ form.remark.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.remark(class='form-control') }}
+					<span id="sremark"></span>
+				</div>
+            </div>
+			<div class="form-group">
+                {{ form.profit_loss.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.profit_loss(class='form-control') }}
+					<span id="sprofit_loss"></span>
+				</div>
+            </div>
+			 <div class="form-group">
+				<div class="col-sm-offset-3 col-sm-1">
+					{{ form.submit(class='btn btn-primary') }}
+				</div>
+				<div class="col-sm-1">
+					{{ form.cancel(class='btn btn-primary',type="reset") }}
+				</div>
+			</div>
+        </form>
+    </div>
+{% endblock %}
+		

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block metas %}
+    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock %}
+
+{% block title %}仓库管理{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{url_for('static',filename='js/depot.js')}}"></script>
+{% endblock %}
+
+{% block subnav %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+       <h4 class="page-header"><a href="{{url_for('.index')}}">返回仓库列表</a> »<span>添加仓库</span></h4>
+        <form class="form-horizontal" method="post" onsubmit= "return checkDepot()">
+            {{ form.csrf_token }}
+			<div class="form-group">
+                {{ form.depotname.label(class="col-sm-1 control-label") }}
+				 <div class="col-sm-4">
+                    {{ form.depotname(class='form-control') }}
+					<span id="sdepotname"></span>
+				</div>
+            </div>
+            <div class="form-group">
+                {{ form.template.label(class="col-sm-1 control-label") }}
+				 <div class="col-sm-4">
+                {{ form.template(class='form-control') }}
+				</div>
+			</div>
+			 <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					{{ form.submit(class='btn btn-primary') }}
+				</div>
+			</div>
+        </form>
+    </div>
+{% endblock %}
+		

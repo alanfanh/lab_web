@@ -1,0 +1,73 @@
+import pymysql
+import smtplib,time
+from email.mime.text import MIMEText
+import datetime
+config = {
+'host':'127.0.0.1',
+'port':3306,
+'user':'root',
+'passwd':'zlp308',
+'db':'test',
+'charset':'utf8',
+'cursorclass':pymysql.cursors.DictCursor
+}
+connect = pymysql.Connect(**config)
+cursor = connect.cursor()
+print('cursor=',cursor)
+
+def get_admin_mail():
+    sql = "SELECT email FROM users where username='%s' "
+    data = "admin"
+    cursor.execute(sql %data)
+    email = [ i['email'] for i in cursor.fetchall()]
+    return email
+    
+    
+def get_user_info():
+    sql = "SELECT username,usermail,back_time FROM t1s"
+    cursor.execute(sql)
+    info = [i for i in cursor.fetchall()]
+    return info
+    
+
+        
+def get_to_list():
+    info = get_user_info()
+    print("info=",info)
+    to_list = []
+    for i in info:
+        print(i['username'])
+        if i['username'] != None:
+            back_time = i['back_time']
+            print(back_time)
+            today = datetime.date.today()
+            print((back_time-today).days)
+            if (back_time-today).days <=2:
+                to_list.append(i['usermail'])
+    to_list = list(set(to_list))
+    print("to_list=",to_list)
+    return to_list
+        
+        
+def send_lend_mail(sub,content):
+    while True:
+        to_list =  get_to_list()
+        if to_list != []:
+            mail_host = "smtp.163.com"
+            mail_user = get_admin_mail()
+            print(mail_user)
+            mail_pass = "zlp308"
+            me=mail_user[0]
+            msg = MIMEText(content, _subtype='plain', _charset='utf-8')
+            msg['Subject'] = sub
+            msg['From'] = me
+            msg['To'] = ";".join(to_list)
+            server = smtplib.SMTP()
+            server.connect(mail_host)
+            server.login(me,mail_pass)
+            server.sendmail(me,to_list,msg.as_string())
+            server.close()
+        time.sleep(20)
+        
+        
+print(get_user_info())

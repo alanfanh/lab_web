@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block metas %}
+    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock %}
+
+{% block title %}修改密码{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css' ) }}">
+	<script language="JavaScript" type="text/JavaScript">
+		function dis(){
+			var check = document.getElementById('changepwd');
+			var traget = document.getElementsByClassName('form-group');
+			if(check.checked){
+				for (var i=3;i<traget.length-1;i++) {
+					traget[i].style.display="block";
+				}
+			}else{
+				for (var i=3;i<traget.length-1;i++) {
+					traget[i].style.display="none";
+				}
+			}
+		}
+	</script>
+{% endblock %}
+
+{% block subnav %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h4 class="page-header"><a href="{{url_for('main.index')}}">返回首页</a> »<span>修改密码</span></h4>
+        <form class="form-horizontal" method="post">
+            {{ form.csrf_token }}
+			<div class="form-group">
+                {{ form.name.label(class="col-sm-2 control-label") }}
+				 <div class="col-sm-4">
+					<p class="form-control-static">{{form.name.data}}</p>
+				</div>
+            </div>
+            <div class="form-group">
+                {{ form.username.label(class="col-sm-2 control-label") }}
+				<div class="col-sm-4">
+					<p class="form-control-static">{{form.username.data}}</p>
+				</div>
+            </div>
+			 <div class="form-group">
+                {{ form.email.label(class="col-sm-2 control-label") }}
+				<div class="col-sm-4">
+                {% if form.email.errors %}
+                    {{ form.email(class='form-control is-invalid') }}
+                    {% for error in form.email.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.email(class='form-control') }}
+                {% endif %}
+				</div>
+            </div>
+			<div class="form-check">
+				<div class="col-sm-offset-2 col-sm-10">
+					{{ form.changepwd(class='form-check-input',onclick="dis()") }}
+					{{ form.changepwd.label }}
+				</div>
+            </div>
+            <div class="form-group" style="display:none" >
+                {{ form.oldpassword.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                {% if form.oldpassword.errors %}
+                    {{ form.oldpassword(class='form-control is-invalid') }}
+                    {% for error in form.oldpassword.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.oldpassword(class='form-control') }}
+                {% endif %}
+				</div>
+            </div>
+             <div class="form-group" style="display:none" >
+                {{ form.newpassword.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                {% if form.newpassword.errors %}
+                    {{ form.newpassword(class='form-control is-invalid') }}
+                    {% for error in form.newpassword.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.newpassword(class='form-control') }}
+                {% endif %}
+				</div>
+            </div>
+			 <div class="form-group" style="display:none" >
+                {{ form.confirmpwd.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                {% if form.confirmpwd.errors %}
+                    {{ form.confirmpwd(class='form-control is-invalid') }}
+                    {% for error in form.confirmpwd.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.confirmpwd(class='form-control') }}
+                {% endif %}
+				</div>
+            </div>
+			 <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					{{ form.submit(class='btn btn-primary') }}
+				</div>
+			</div>
+        </form>
+    </div>
+{% endblock %}
+		

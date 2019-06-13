@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block metas %}
+    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock %}
+
+{% block title %}用户管理{% endblock %}
+
+{% block scripts %} 
+{{ super() }}
+<script type="text/javascript" src="{{url_for('static',filename='js/auth.js')}}"></script>
+{% endblock%}
+
+{% block subnav %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+       <h4 class="page-header"><a href="{{url_for('.index')}}">返回用户列表</a> »<span>添加用户</span></h4>
+        <form class="form-horizontal" method="post" onsubmit="return checkUser()">
+            {{ form.csrf_token }}
+			<div class="form-group">
+                {{ form.name.label(class="col-sm-2 control-label") }}
+				<div class="col-sm-4">
+					{{ form.name(class='form-control') }}
+					<span id="sname"></span>
+				</div>
+            </div>
+            <div class="form-group">
+                {{ form.username.label(class="col-sm-2 control-label") }}
+				<div class="col-sm-4">
+                    {{ form.username(class='form-control') }}
+					<span id="susername"></span>
+				</div>
+            </div>
+            <div class="form-group">
+                {{ form.password.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.password(class='form-control') }}
+					<span id="spwd"></span>
+				</div>
+            </div>
+             <div class="form-group">
+                {{ form.password2.label(class='col-sm-2 control-label') }}
+				<div class="col-sm-4">
+                    {{ form.password2(class='form-control') }}
+					<span id="spwd2"></span>
+				</div>
+            </div>
+			 <div class="form-group">
+				<div class="col-sm-offset-2 col-sm-4">
+					{{ form.submit(class='btn btn-primary') }}
+				</div>
+			</div>
+        </form>
+    </div>
+{% endblock %}
+		
