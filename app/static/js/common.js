@@ -42,13 +42,19 @@
                  count++;
             }
         };
-		alert(count);
+		// alert(count);
 		if(count<=0) {
 			alert("至少选择一条条目");
 			return false;
 		};
 		return true;
 	}
+    // ajax删除页面选中的条目
+    function deleteSelected(argument) {
+        // body...
+        var xmlhttp;
+        
+    }
 	
 	//检查上传文件的类型
 	function checkUploadFile() {
@@ -65,7 +71,7 @@
 		return true;
 	}
 	
-	//管理员账户修改密码，根据checkbox框的状态判断显示/隐藏元素
+	// 管理员账户修改密码,根据checkbox框的状态判断显示/隐藏元素
 	function checkSelectBox(){
 		var check = document.getElementById('changepwd');
 		var traget = document.getElementsByClassName('form-group');

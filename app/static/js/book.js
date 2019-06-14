@@ -223,6 +223,7 @@ function checkUsername() {
 		return false;
 	} else {
 		error.innerHTML = "";
+		console.log('testtttt')
 		return true;
 	}
 }

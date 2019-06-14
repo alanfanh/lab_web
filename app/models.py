@@ -33,11 +33,11 @@ class Role(db.Model):
 
 #权限表
 class Permission:
-        ADD = 0x01
-        EDIT = 0x02
-        DEL = 0x04
-        QUERY = 0x08
-        ADMINISTRATOR = 0x80
+    ADD = 0x01
+    EDIT = 0x02
+    DEL = 0x04
+    QUERY = 0x08
+    ADMINISTRATOR = 0x80
 
 #用户表
 class User(UserMixin,db.Model):

@@ -235,8 +235,8 @@ def edit(name,id):
         form.numbers.data = cmp.numbers
         form.position.data = cmp.position
         form.entertime.data = cmp.entertime
-        form.status.data = cmp.status
-        print("status=",form.status.data)
+        form.status.data = int(cmp.status)
+        # print("status=",form.status.data)
         form.remark.data = cmp.remark
         form.username.data = cmp.username
         form.usermail.data = cmp.usermail
@@ -284,7 +284,7 @@ def edit(name,id):
         form.numbers.data = cmp.numbers
         form.owner.data = cmp.owner
         form.position.data = cmp.position
-        form.status.data = cmp.status
+        form.status.data = int(cmp.status)
         form.remark.data = cmp.remark
         form.username.data = cmp.username
         form.usermail.data = cmp.usermail
@@ -318,13 +318,13 @@ def edit(name,id):
                     cmp.username = None
                     cmp.usermail = None
                     cmp.lend_time = datetime.now().strftime("%Y-%m-%d")
-                    cmp.lend_numbers = None
+                    # cmp.lend_numbers = None
                     cmp.back_time = datetime.now().strftime("%Y-%m-%d")
                 elif form.status.data == 2:
                     cmp.username = form.username.data
                     cmp.usermail = form.usermail.data
                     cmp.lend_time = form.lend_time.data
-                    cmp.lend_numbers = form.lend_numbers.data
+                    # cmp.lend_numbers = form.lend_numbers.data
                 db.session.commit()
                 flash("修改成功","success")
                 return redirect(url_for('main.show',name=depot.name))
@@ -335,12 +335,12 @@ def edit(name,id):
         form.department.data = cmp.department
         form.owner.data = cmp.owner
         form.position.data = cmp.position
-        form.status.data = cmp.status
+        form.status.data = int(cmp.status)
         form.remark.data = cmp.remark
         form.username.data = cmp.username
         form.usermail.data = cmp.usermail
         form.lend_time.data = cmp.lend_time
-        form.lend_numbers.data = cmp.lend_numbers
+        # form.lend_numbers.data = cmp.lend_numbers
         form.profit_loss.data = cmp.profit_loss
         form.calibratetime.data = cmp.calibratetime 
         form.resumptiontime.data = cmp.resumptiontime

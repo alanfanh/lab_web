@@ -7,6 +7,7 @@
 
 {% block scripts %} 
 <script type="text/javascript" src="{{url_for('static',filename='js/common.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
 {% endblock %}
 
 {% block subnav %}{% endblock %} 
@@ -21,8 +22,8 @@
 			</div>
 			<div class="col-xs-1">
 				<form class="form-inline" method="post" action="" onsubmit="return delAll()">
-					<input type="hidden" name="csrf_token" value="{{csrf_token}}">
-					<input type="submit" class="btn btn-info btn-sm" value="删除">
+					<!-- <input type="hidden" name="csrf_token" value="{{csrf_token}}"> -->
+					<input type="submit" class="btn btn-info btn-sm" onclick="batch_del()" value="删除">
 				</form>
 			</div>
 			{% endif %}
@@ -125,6 +126,50 @@
 			</div>
 			{% endif %}
 	</div>
+	<script>
+	 /*批量选中的效果*/
+	 $('input:checkbox[name="selectall"]').click(function(){
+		 if($(this).is(':checked')){
+		     $('input:checkbox').each(function(){
+		    	$(this).prop("checked",true);
+		  		});
+		    }else{
+		      $('input:checkbox').each(function(){
+		    	$(this).prop("checked",false);
+		  		});
+		    }
+	 });
+	 /*获取ids,批量删除*/
+	  function batch_del() {
+	    var ids = '';
+	    $('input:checkbox').each(function(){
+	      if(this.checked == true){
+	        ids += this.value + ',';
+	      }
+	    });
+	    //layer.alert(ids);return;
+	    //下面的ajax根据自己的情况写
+	    layer.confirm('批量删除后不可恢复，谨慎操作！', {icon: 7, title: '警告'}, function (index) {
+	      $.ajax({
+	        type: 'POST',
+	        url: '/book/settings/del?ids=' + ids,
+	        data: {"1": "1"},
+	        dataType: 'json',
+	        success: function (data) {
+	          if (data.code == 200) {
+	            $(obj).parents("tr").remove();
+	            layer.msg(data.message, {icon: 1, time: 1000});
+	          } else {
+	            layer.msg(data.message, {icon: 2, time: 3000});
+	          }
+	        },
+	        error: function (data) {
+	          console.log(data.msg);
+	        },
+	      });
+	    });
+	  }
+	</script>
 {% endblock %}
 
 			

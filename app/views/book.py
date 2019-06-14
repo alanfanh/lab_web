@@ -98,12 +98,12 @@ def edit(id):
             book.status = form.status.data
             if form.status.data == 1:
                 book.username = None
-                usermail =  None
+                book.usermail =  None
                 book.lendtime = datetime.now().strftime("%Y-%m-%d")
                 book.backtime = datetime.now().strftime("%Y-%m-%d")
             elif form.status.data == 2:
                 book.username = form.username.data
-                usermail = form.usermail.data
+                book.usermail = form.usermail.data
                 book.lendtime = form.lendtime.data
                 book.backtime = form.backtime.data
             db.session.commit()
@@ -118,11 +118,14 @@ def edit(id):
     form.usermail.data = book.usermail
     form.lendtime.data = book.lendtime
     form.backtime.data = book.backtime
+    # 数据库模型定义的string类型
+    form.status.data = int(book.status)
+    # print('book.status', book.status)
     return render_template('book/settings/edit.html',form=form)
-   
+
 #删除图书
 @admin_required
-@book_bp.route('/book/settings/del/<int:id>',methods=['GET','POST']) 
+@book_bp.route('/book/settings/del/<int:id>',methods=['GET','POST'])
 @login_required
 def delete(id):
     print(request.args)
@@ -131,13 +134,13 @@ def delete(id):
     db.session.delete(book)
     db.session.commit()
     flash('删除成功','success')
-    page = request.args.get('page',type=int)
-    
+    # page = request.args.get('page',type=int)
+
     # return redirect(url_for('.index'))
     return redirect_back('book.index')
-   
+
 #全选删除
-@book_bp.route('/book/settings/delall',methods=['GET','POST']) 
+@book_bp.route('/book/settings/delall',methods=['GET','POST'])
 @login_required
 @admin_required
 def delete_all():
