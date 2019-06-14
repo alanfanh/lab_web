@@ -75,7 +75,7 @@ class User(UserMixin,db.Model):
         return self.role is not None and (self.role.permissions & permission) == permission
     def is_administrator(self):
         return self.can(Permission.ADMINISTRATOR)
-        
+
 
 class AnonymousUser(AnonymousUserMixin):
     def can(self,permission):

@@ -377,7 +377,7 @@ function checkUseremail() {
 	} else if (! reg.test(email)) {
 		error.innerHTML = "<font color='red'>邮箱格式错误</font>";
 		return false;
-	} else if (getLength(obj)>64) {
+	} else if (getLength(email)>64) {
 		error.innerHTML = "<font color='red'>范围：1-64位</font>";
 		return false;
 	} else {
@@ -457,7 +457,7 @@ function checkLbTime() {
 	var date1 = document.getElementById("lend_time").value;
 	var date2 = document.getElementById("back_time").value;
 	var dateDiff = new Date(date2).getTime() - new Date(date1).getTime();
-	 var dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000));
+	var dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000));
 	if (dayDiff < 0) {
 		return false;
 	};
@@ -709,8 +709,8 @@ function  T3Login() {
 		};
 	} else {
 		if (checkAssetnum() && checkProductname() && checkModelname() &&  checkNumber() && checkOwner() && checkPosition() && checkDepartment() 
-		&& checkCalibratetime() && checkUsername() && checkUseremail() && checkLendtime() && checkBacktime() && checkRemark() && checkProfitloss() 
-		&& checkLbTime()&& checkCrTime()) {
+		&& checkCalibratetime() && checkUsername() && checkUseremail() && checkLendtime() &&  checkRemark() && checkProfitloss() 
+		&& checkCrTime()) {
 			return true;
 		};
 	};
@@ -720,12 +720,12 @@ function  T3Login() {
 		popTip('上次校验时间不能小于复校时间', 'warning');
 		return false;
 	};
-	if (! checkLbTime()) {
-		//document.getElementById("msgBox").innerHTML = "预计归还时间不能小于借机时间";
-		//document.getElementById("msgBox").style.display = "block";
-		popTip('预计归还时间不能小于借机时间', 'warning');
-		return false;
-	};
+	// if (! checkLbTime()) {
+	// 	//document.getElementById("msgBox").innerHTML = "预计归还时间不能小于借机时间";
+	// 	//document.getElementById("msgBox").style.display = "block";
+	// 	popTip('预计归还时间不能小于借机时间', 'warning');
+	// 	return false;
+	// };
 	document.getElementById("msgBox").style.display = "block";
 	return false;
 }

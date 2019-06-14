@@ -332,7 +332,7 @@ function  checkBook() {
 			return true;
 		};
 	} else {
-		if (checkBooknum() && checkBookname() && checkNumber() && checkPrices() && checkPosition() && checkUsername() &&  checkLendtime() && checkBacktime() && checkTime())  {
+		if (checkBooknum() && checkBookname() && checkNumber() && checkPrices() && checkPosition() && checkUsername() &&  checkLendtime() && checkBacktime() && checkTime() )  {
 			return true;
 		};
 	};
