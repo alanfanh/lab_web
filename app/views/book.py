@@ -145,7 +145,7 @@ def delete(id):
 @admin_required
 def delete_all():
     if request.method == 'POST':
-        id = request.form.get('id')
+        id = request.form.get('ids')
         for i in id:
             book = Book.query.get_or_404(i)
             db.session.delete(book)
