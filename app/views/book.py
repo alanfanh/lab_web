@@ -146,7 +146,6 @@ def delete(id):
 def delete_all():
     if request.method == 'POST':
         id = request.form.get('ids')
-<<<<<<< HEAD
         print('id=', id)
         id = id.split(',')
         if 'on' in id:
@@ -154,8 +153,6 @@ def delete_all():
         if '' in id:
             id.remove('')
         print('id=', id)
-=======
->>>>>>> 879d67f145f8eea04057b9e1aba4281e42ce0bce
         for i in id:
             book = Book.query.get_or_404(i)
             db.session.delete(book)

@@ -5,11 +5,7 @@
 
 {% block title %}图书管理{% endblock %}
 
-<<<<<<< HEAD
-{% block scripts %} 
-=======
 {% block scripts %}
->>>>>>> 879d67f145f8eea04057b9e1aba4281e42ce0bce
 <script type="text/javascript" src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static',filename='js/common.js')}}"></script>
 {% endblock %}
@@ -17,25 +13,6 @@
 {% block subnav %}{% endblock %}
 
 {% block content %}
-<<<<<<< HEAD
-	<div class="container">
-		<h3 class="page-header"><a href="{{url_for('main.index')}}">返回首页</a></h3>
-		<div class="row">
-			{% if current_user.is_administrator() %}
-			<div class="col-xs-1">
-				<a class="btn btn-info btn-sm" href="{{url_for('.add')}}">添加</a>
-			</div>
-			<div class="col-xs-1">
-				<form class="form-inline">
-					<!-- <input type="hidden" name="csrf_token" value="{{csrf_token}}"> -->
-					<input type="submit" class="btn btn-info btn-sm" onclick="delAll() && batch_del()" value="删除">
-				</form>
-			</div>
-			{% endif %}
-			<div class="col-xs-5 pull-right">
-				<form action="/book/index" class="form-inline" action="{{url_for('.index')}}">
-					<div class="form-group">
-=======
 <div class="container">
 	<h3 class="page-header"><a href="{{url_for('main.index')}}">返回首页</a></h3>
 	<div class="row">
@@ -105,7 +82,6 @@
 					<!-- <td>{{ request.full_path}}<td> -->
 					{% if current_user.is_administrator() %}
 					<td>
->>>>>>> 879d67f145f8eea04057b9e1aba4281e42ce0bce
 						<div class="row">
 							<div class="col-sm-3">
 								<a class="btn btn-info btn-sm" href="{{url_for('.edit',id=book.id)}}">编辑</a>
@@ -151,8 +127,4 @@
 		</div>
 		{% endif %}
 	</div>
-<<<<<<< HEAD
 {% endblock %}
-=======
-	{% endblock %}
->>>>>>> 879d67f145f8eea04057b9e1aba4281e42ce0bce
