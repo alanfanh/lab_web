@@ -71,7 +71,7 @@ function checkUploadFile() {
 	return true;
 }
 
-// 管理员账户修改密码,根据checkbox框的状态判断显示/隐藏元素
+// 管理员账户修改密码,根据checkbox框的状态判断显示，隐藏元素
 function checkSelectBox() {
 	var check = document.getElementById('changepwd');
 	var traget = document.getElementsByClassName('form-group');
@@ -136,4 +136,45 @@ function batch_del() {
 		});
 	}
 }
-	
+
+/*获取name和ids,批量删除*/
+function delete_item() {
+	console.log('delete_item')
+	var ids = '';
+	$('input:checkbox').each(function () {
+		if (this.checked == true) {
+			ids += this.value + ',';
+		}
+	});
+	//下面的ajax根据自己的情况写
+	var b = confirm('批量删除后不可恢复，谨慎操作！', {
+		icon: 7,
+		title: '警告'
+	});
+	console.log(ids);
+	var name = document.querySelector('body > div.container-fluid > div > div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main > h2').innerText
+	console.log(typeof(name));
+	name = encodeURI(name);
+	console.log(name);
+	if (b) {
+		$.ajax({
+			type: 'POST',
+			url: '/'+ name +'/deleteall',
+			data: {
+				ids: ids,
+			},
+			dataType: 'json',
+			success: function (data) {
+				if (data.code == 200) {
+					alert(data.message);
+					location.reload();
+				} else {
+					alert(data.message);
+				}
+			},
+			error: function (data) {
+				console.log(data.msg);
+			},
+		});
+	}
+}

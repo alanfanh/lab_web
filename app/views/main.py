@@ -18,9 +18,9 @@ main_bp = Blueprint('main', __name__)
 # @login_required
 def index():
     if not current_user.is_authenticated:
-         return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
     return redirect(url_for('main.show',name="竞品仓"))
-       
+
 
 #显示
 @main_bp.route('/show/<name>')
@@ -373,7 +373,13 @@ def delete_all(name):
     template_id = depot.template_id
     if request.method=='POST':
         all_id = request.form.get('ids')
-        print("all_id=",all_id)
+        all_id=all_id.split(',')
+        if '' in all_id:
+            all_id.remove('')
+        if 'on' in all_id:
+            all_id.remove('on')
+        print("all_id=", all_id)
+        all_id=list(map(int,all_id))
         for i in all_id:
             if template_id == 1:
                 cmp = T1.query.filter(and_(T1.name == name, T1.id == i)).first()
