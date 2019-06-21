@@ -152,14 +152,10 @@ function delete_item() {
 		title: '警告'
 	});
 	console.log(ids);
-	// var name = document.querySelector('body > div.container-fluid > div > div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main > h2').innerText
-	var depot = document.getElementById("depotName")
-	name = depot.innerText
-	// console.log(typeof(name));
+	var name = document.querySelector('body > div.container-fluid > div > div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main > h2').innerText
+	console.log(typeof(name));
 	name = encodeURI(name);
 	console.log(name);
-	// var depotname = $("#depotName").innerText
-	console.log(b)
 	if (b) {
 		$.ajax({
 			type: 'POST',
@@ -169,18 +165,15 @@ function delete_item() {
 			},
 			dataType: 'json',
 			success: function (data) {
-				console.log('success',data.code)
 				if (data.code == 200) {
 					alert(data.message);
-					console.log('Refresh');
 					location.reload();
 				} else {
 					alert(data.message);
 				}
 			},
 			error: function (data) {
-				location.reload()
-				console.log('error:',data.msg);
+				console.log(data.msg);
 			},
 		});
 	}

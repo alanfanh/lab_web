@@ -14,7 +14,7 @@
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h2 class="page-header" id="depotName">{{depot.name}}</h2>
+				<h2 class="page-header">{{depot.name}}</h2>
 				<div class="row">
 				{% if current_user.is_administrator() %}
 					<div class="col-xs-1">
