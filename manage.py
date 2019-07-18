@@ -92,7 +92,7 @@ if __name__ == '__main__':
     scheduler = BackgroundScheduler()
     scheduler.add_job(send_lend_mail, 'cron', day_of_week='mon-fri', hour=11, minute=22)
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
-    # scheduler.start()
+    scheduler.start()
     # send_lend_mail(sub='测试')
     try:
         manager.run()
