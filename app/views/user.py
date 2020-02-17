@@ -68,6 +68,7 @@ def add_account():
 @admin_required
 def edit_account(id):
     form = AddAccountForm()
+    print('form.data=',form.data)
     user = User.query.filter_by(id = id).first_or_404()
     if form.validate_on_submit():
         search_username = User.query.filter_by(username=form.username.data).first()
@@ -80,6 +81,9 @@ def edit_account(id):
             user.name = form.name.data
             user.username = form.username.data
             user.password_hash = user.set_password(form.password.data)
+            print('***pass***',form.password.data)
+            print('***hash pass***',user.password_hash)
+            db.session.add(user)
             db.session.commit()
             flash('修改成功','success')
             return redirect(url_for('user.index'))
