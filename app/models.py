@@ -164,7 +164,7 @@ class T3(db.Model):
     resumptiontime = db.Column(db.Date,default=datetime.now,nullable=False)
     username = db.Column(db.String(64),index=True,nullable=True)
     usermail = db.Column(db.String(64),nullable=True)
-    # lend_numbers = db.Column(db.Integer,nullable=True)
+    lend_numbers = db.Column(db.Integer,nullable=True)
     lend_time = db.Column(db.Date,default=datetime.now,nullable=True)
     back_time = db.Column(db.Date,default=datetime.now,nullable=True)
     remark = db.Column(db.String(64))
