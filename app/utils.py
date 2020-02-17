@@ -133,6 +133,8 @@ def read_excel(path):
                     if ctype == 3:
                         date = datetime(*xldate_as_tuple(row[j], 0))
                         row[j] = date.strftime('%Y-%m-%d')
+                    elif ctype == 2:
+                        row[j] = int(row[j])
                     app[head[j]] = row[j]
                 data.append(app)
     elif filename.endswith('xlsx'):
