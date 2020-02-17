@@ -224,7 +224,7 @@ if __name__ == "__main__":
     # MSG1['From'] = MAIL['user']
     # MSG1['To'] = 'fanhao@tenda.cn'
     # # send_email(to_addr='fanhao@tenda.cn', msg=MSG1)
-    get_books_list()
+    # get_books_list()
     # send_lend_mail(sub='测试')
     # 
     scheduler.start()
