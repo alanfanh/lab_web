@@ -1,7 +1,0 @@
-{% for message in get_flashed_messages %}
-{% if message%}
-
-
-{% endif%}
-
-{% endfor %}
