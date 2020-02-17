@@ -318,13 +318,13 @@ def edit(name,id):
                     cmp.username = None
                     cmp.usermail = None
                     cmp.lend_time = datetime.now().strftime("%Y-%m-%d")
-                    # cmp.lend_numbers = None
+                    cmp.lend_numbers = None
                     cmp.back_time = datetime.now().strftime("%Y-%m-%d")
                 elif form.status.data == 2:
                     cmp.username = form.username.data
                     cmp.usermail = form.usermail.data
                     cmp.lend_time = form.lend_time.data
-                    # cmp.lend_numbers = form.lend_numbers.data
+                    cmp.lend_numbers = form.lend_numbers.data
                 db.session.commit()
                 flash("修改成功","success")
                 return redirect(url_for('main.show',name=depot.name))
@@ -340,7 +340,7 @@ def edit(name,id):
         form.username.data = cmp.username
         form.usermail.data = cmp.usermail
         form.lend_time.data = cmp.lend_time
-        # form.lend_numbers.data = cmp.lend_numbers
+        form.lend_numbers.data = cmp.lend_numbers
         form.profit_loss.data = cmp.profit_loss
         form.calibratetime.data = cmp.calibratetime 
         form.resumptiontime.data = cmp.resumptiontime
