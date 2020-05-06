@@ -136,6 +136,14 @@
 			</div>
         </form>
     </div>
+	<script>
+	// 点击借机时间输入框自动填入当前日期
+	$("#lend_time").on('click', function () {
+		var date = new Date();
+		var datestr = date.toLocaleDateString().replace(/\//g, '-');
+		$("#lend_time").val(datestr)
+	});
+	</script>
 {% endblock %}
 
 		
