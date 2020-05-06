@@ -197,6 +197,9 @@ def add(name):
 def edit(name,id):
     depot = Depot.query.filter_by(name = name).first()
     template_id = depot.template_id
+    # 获取记录所处的分页页面url
+    redirect_url = request.args.get('redirect_url')
+    # print("****redirect_url:",redirect_url)
     if template_id == 1:
         form = ComproductForm()
         cmp = T1.query.get_or_404(id)
@@ -228,7 +231,8 @@ def edit(name,id):
                     cmp.back_time = form.back_time.data
                 db.session.commit()
                 flash("修改成功","success")
-                return redirect(url_for('main.show',name=depot.name))
+                # return redirect(url_for('main.show',name=depot.name))
+                return redirect(redirect_url)
         form.assetnumber.data = cmp.assetnumber
         form.product_name.data = cmp.product_name
         form.model_name.data = cmp.model_name
@@ -277,7 +281,8 @@ def edit(name,id):
                     cmp.back_time = form.back_time.data
                 db.session.commit()
                 flash("修改成功","success")
-                return redirect(url_for('main.show',name=depot.name))
+                # return redirect(url_for('main.show',name=depot.name))
+                return redirect(redirect_url)
         form.assetnumber.data = cmp.assetnumber
         form.product_name.data = cmp.product_name
         form.model_name.data = cmp.model_name
@@ -327,7 +332,8 @@ def edit(name,id):
                     cmp.lend_numbers = form.lend_numbers.data
                 db.session.commit()
                 flash("修改成功","success")
-                return redirect(url_for('main.show',name=depot.name))
+                # return redirect(url_for('main.show',name=depot.name))
+                return redirect(redirect_url)
         form.assetnumber.data = cmp.assetnumber
         form.product_name.data = cmp.product_name
         form.model_name.data = cmp.model_name
