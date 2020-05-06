@@ -83,6 +83,9 @@ def add():
 @login_required
 @admin_required
 def edit(id):
+    # 获取记录所处的分页页面
+    redirect_url = request.args.get('redirect_url')
+    # print("****redirect_url:",redirect_url)
     form = BookForm()
     book = Book.query.get_or_404(id)
     if form.validate_on_submit():
@@ -108,7 +111,9 @@ def edit(id):
                 book.backtime = form.backtime.data
             db.session.commit()
             flash('修改成功','success')
-            return redirect(url_for('book.index'))
+            print(url_for('book.index', page=2))
+            # return redirect(url_for('book.index', page=page))
+            return redirect(redirect_url)
     form.booknumber.data = book.booknumber
     form.bookname.data = book.bookname 
     form.numbers.data = book.numbers
@@ -128,16 +133,14 @@ def edit(id):
 @book_bp.route('/book/settings/del/<int:id>',methods=['GET','POST'])
 @login_required
 def delete(id):
-    print(request.args)
-    print(request.form)
     book = Book.query.get_or_404(id)
     db.session.delete(book)
     db.session.commit()
     flash('删除成功','success')
-    # page = request.args.get('page',type=int)
-
+    # 返回当前分页页面
+    return redirect(request.referrer)
     # return redirect(url_for('.index'))
-    return redirect_back('book.index')
+    # return redirect_back('book.index')
 
 #全选删除
 @book_bp.route('/book/settings/delall',methods=['GET','POST'])

@@ -84,7 +84,7 @@
 					<td>
 						<div class="row">
 							<div class="col-sm-3">
-								<a class="btn btn-info btn-sm" href="{{url_for('.edit',id=book.id)}}">编辑</a>
+								<a class="btn btn-info btn-sm" href="{{url_for('.edit',id=book.id, redirect_url=request.url)}}">编辑</a>
 							</div>
 							<div class="col-sm-3">
 								<form class="form-inline" method="post" action="{{url_for('.delete',id=book.id)}}">
