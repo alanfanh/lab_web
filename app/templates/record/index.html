@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% import "macros.html" as macros %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+
+{% block title %}图书管理{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/common.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<h3 class="page-header">资产物品删除记录</h3>
+	<div class="row">
+		<div class="col-xs-5 pull-right">
+			<form action="/record/index" class="form-inline" action="{{url_for('.index')}}">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-6">
+							<input type="text" name="q" class="form-control mr-sm-1" placeholder="记录编号,品牌,物品名,仓库名">
+						</div>
+						<div class="col-xs-3">
+							<button class="btn my-2 my-sm-0" type="submit">
+								<span class="oi oi-magnifying-glass">搜索</span>
+							</button>
+						</div>
+						<div class="col-sm-2">
+							<a href="{{url_for('.index')}}" class="btn btn-info my-2 my-sm-0">刷新</a>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<br>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td><input type="checkbox" id="all" onclick="checkboxAll(this)"></td>
+					<th>ID</th>
+					<th>记录编号</th>
+					<th>品牌</th>
+					<th>物品名</th>
+					<th>原所属库</th>
+					<th>删除时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if records %}
+				{% for record in records %}
+				<tr>
+					<td><input type="checkbox" name="box" onclick="selectAll()" value="{{record.id}}"></td>
+					<td>{{ loop.index + ((pagination.page-1) * config.DEPOT_PER_PAGE) }}</td>
+					<td>{{ record.assetnumber }}</td>
+					<td>{{ record.brand}}</td>
+					<td>{{ record.product }}</td>
+					<td>{{ record.depotname}}</td>
+					<td>{{ record.delete_time }}</td>
+				</tr>
+				{% endfor %}
+				{% else %}
+				<tr>
+					<td colspan="10" class="text-center">暂无数据</td>
+				</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="page-footer">
+		{% if pagination.pages > 1 %} {{ macros.pagination_widget(pagination, '.index') }} {% endif %}
+	</div>
+	<div class="form-group">
+		<div class="pull-left col-xs-4 col-sm-2">
+			<a class="btn btn-default btn-sm export-rule" href="{{url_for('.explore')}}">导出数据</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
