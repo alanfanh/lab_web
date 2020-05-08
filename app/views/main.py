@@ -7,7 +7,7 @@ from sqlalchemy.sql.expression import func
 from .. import db
 from app.utils import redirect_back,rename_file,allowed_file,read_excel,write_excel,checkHead,checkInt,checkNumber,checkType,checkEmpty,checkNumber,checkType,checkType2,checkDate,checkCompareDate,checkEmail
 from app.forms.main import ComproductForm,UploadForm,FixedassetsForm,ConsumablesForm
-from app.models import T1,T2,T3,Depot
+from app.models import T1, T2, T3, Depot, Record
 from app.decorators import admin_required
 from datetime import datetime
 from sqlalchemy import or_,and_
@@ -366,6 +366,11 @@ def delete(name,id):
     elif template_id == 3:
         cmp = T3.query.filter(and_(T3.name == name,T3.id == id)).first()
     db.session.delete(cmp)
+    # 删除cmp时，将cmp的信息写入record表中
+    r = {'assetnumber': cmp.assetnumber, 'brand': cmp.product_name,
+              'product': cmp.model_name, 'depotname': depot.name}
+    record = Record(**r)
+    db.session.add(record)
     db.session.commit()
     flash('删除成功')
     return redirect_back()
@@ -394,6 +399,11 @@ def delete_all(name):
             elif template_id == 3:
                 cmp = T3.query.filter(and_(T3.name == name, T3.id == i)).first()
             db.session.delete(cmp)
+            # 删除cmp时，将cmp的信息写入record表中
+            r = {'assetnumber': cmp.assetnumber, 'brand': cmp.product_name,
+              'product': cmp.model_name, 'depotname': depot.name}
+            record = Record(**r)
+            db.session.add(record)
         db.session.commit()
         return redirect_back()
         
