@@ -61,6 +61,7 @@
 					<th>储位</th>
 					<th>状态</th>
 					<th>借用人</th>
+					<th>预计归还时间</th>
 					{% if current_user.is_administrator() %}
 					<th>操作</th>
 					{% endif %}
@@ -79,6 +80,7 @@
 					<td>{{ book.position }}</td>
 					{% if book.status == '1' %} <td>在库</td> {% elif book.status == '2' %}<td>借出</td> {% endif %}
 					<td>{{ book.username}}</td>
+					{% if book.status == '1' %} <td></td> {% elif book.status == '2' %}<td>{{ book.backtime}}</td>{% endif %}
 					<!-- <td>{{ request.full_path}}<td> -->
 					{% if current_user.is_administrator() %}
 					<td>
