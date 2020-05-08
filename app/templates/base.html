@@ -39,7 +39,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				</button>
-				<a class="navbar-brand" href="#">实验室管理中心</a>
+				<a class="navbar-brand" href="{{url_for('main.index')}}">实验室管理中心</a>
 			</div>
 			{% block subnav %}
 			<div class="collapse navbar-collapse" id="navbar">
@@ -56,6 +56,9 @@
 						<a class="nav-link" href={{url_for('depot.index')}}>仓库管理</a>
 					</li>
 					{% endif %}
+					<li class="nav-item">
+						<a class="nav-link" href={{url_for('record.index')}}>删除记录</a>
+					</li>
 					<li class="nav-item">
 						<a class="nav-link" href={{url_for('book.index')}}>图书管理</a>
 					</li>
