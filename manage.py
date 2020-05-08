@@ -15,8 +15,9 @@ from app.views.book import book_bp
 from app.views.depot import depot_bp
 from app.views.user import user_bp
 from app.views.main import main_bp
+from app.views.record import record_bp
 from app import db, create_app
-from app.models import User, Role, T1, T2, T3, Book, Depot, Template
+from app.models import User, Role, T1, T2, T3, Book, Depot, Template, Record
 # from threading import Thread
 from sql_sendmail import get_to_list,get_books_list,MAIL
 # from datetime import datetime
@@ -27,6 +28,7 @@ app.register_blueprint(main_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(depot_bp)
 app.register_blueprint(book_bp)
+app.register_blueprint(record_bp)
 manager = Manager(app)
 migrate = Migrate(app, db)
 manager.add_command('db', MigrateCommand)
