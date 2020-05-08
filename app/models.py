@@ -45,7 +45,7 @@ class User(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(64),unique=True,nullable=False,index=True)
     username = db.Column(db.String(64),unique=True,nullable=False,index=True)
-    password_hash= db.Column(db.String(256),unique=True,nullable=False,index=True)
+    password_hash= db.Column(db.String(256),nullable=False)
     email = db.Column(db.String(64),nullable=True,index=True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     def __init__(self,name,username):
@@ -205,9 +205,9 @@ class Book(db.Model):
     status = db.Column(db.String(255))
     username = db.Column(db.String(64),nullable=True)
     usermail = db.Column(db.String(64),nullable=True)
-    lendtime = db.Column(db.Date,default=datetime.now,nullable=True)
-    backtime = db.Column(db.Date,default=datetime.now,nullable=True)
+    lendtime = db.Column(db.Date,nullable=True)
+    backtime = db.Column(db.Date,nullable=True)
     def __init__(self,**kwargs):
           super(Book,self).__init__(**kwargs)
           
-          
+
