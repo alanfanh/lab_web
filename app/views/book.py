@@ -4,7 +4,7 @@ from flask import render_template, flash, redirect, url_for, current_app, reques
 from flask_login import login_required, current_user, fresh_login_required, logout_user
 from app.forms.book import BookForm
 from app.forms.main import UploadForm
-from app.models import Book
+from app.models import Book, Record
 from .. import db
 from app.utils import redirect_back,rename_file,allowed_file,read_excel,write_excel,\
 checkHead,checkInt,checkNumber,checkType,checkEmpty,checkNumber,checkType,checkType2,checkDate,checkCompareDate,checkEmail,checkLength
@@ -136,6 +136,12 @@ def delete(id):
     book = Book.query.get_or_404(id)
     db.session.delete(book)
     db.session.commit()
+    # 将被删除的数据写入记录表中
+    r = {'assetnumber': book.booknumber, 'brand': '',
+         'product': book.bookname, 'depotname': '图书管理'}
+    record = Record(**r)
+    db.session.add(record)
+    db.session.commit()
     flash('删除成功','success')
     # 返回当前分页页面
     return redirect(request.referrer)
@@ -159,6 +165,11 @@ def delete_all():
         for i in id:
             book = Book.query.get_or_404(i)
             db.session.delete(book)
+            # 每删除一个book，即将book信息添加record表中
+            r = {'assetnumber': book.booknumber, 'brand': '',
+                 'product': book.bookname, 'depotname': '图书管理'}
+            record = Record(**r)
+            db.session.add(record)
         db.session.commit()
         flash('删除成功','success')
         return redirect_back('book.index')
