@@ -211,3 +211,15 @@ class Book(db.Model):
           super(Book,self).__init__(**kwargs)
           
 
+# 删除记录表
+class Record(db.Model):
+    __tablename__ = 'records'
+    id = db.Column(db.Integer, primary_key=True)
+    assetnumber = db.Column(db.String(255))
+    brand = db.Column(db.String(255))
+    product = db.Column(db.String(255))
+    depotname = db.Column(db.String(128))
+    delete_time = db.Column(db.Date, default=datetime.now, nullable=True)
+
+    def __init__(self, **kwargs):
+        super(Record, self).__init__(**kwargs)
