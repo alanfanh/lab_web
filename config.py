@@ -22,8 +22,8 @@ class Config:
     DOWNLOAD_PATH = os.path.join(basedir, 'downloads')
     MAIL_SERVER = 'smtp.tenda.com'
     MAIL_PORT = 25
-    MAIL_USERNAME = '18312589653@163.com'
-    MAIL_PASSWORD = 'zlp308'
+    MAIL_USERNAME = ''
+    MAIL_PASSWORD = ''
     MAIL_DEFAULT_SENDER = (MAIL_USERNAME)
     @staticmethod
     def init_app(app):

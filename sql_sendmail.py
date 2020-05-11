@@ -163,7 +163,7 @@ def get_books_list():
 MAIL = {
     'host': 'smtp.tenda.cn',
     'user': 'shiyanshi@tenda.cn',
-    'passwd': 'Tendatest.',
+    'passwd': '',
 }
 
 # 定义邮件发送函数
