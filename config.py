@@ -32,11 +32,12 @@ class Config:
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@localhost:3306/test'
+    DEBUG = False
 
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@localhost:3306/test'
-
+    DEBUG = True
 
 config = {
     'development': DevelopmentConfig,
