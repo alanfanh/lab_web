@@ -8,7 +8,7 @@
 
 ### Developer
 
-[FanHao](http://alanfanh.github)
+[FanHao](http://alanfanh.github.io)
 
 ## 环境
 
